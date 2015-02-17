@@ -6,7 +6,7 @@
 /*   By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/17 11:22:13 by sdurr             #+#    #+#             */
-/*   Updated: 2015/02/17 14:21:36 by sdurr            ###   ########.fr       */
+/*   Updated: 2015/02/17 15:29:50 by sdurr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,39 +20,40 @@
 
 void		windows(void *mlx, void *window, char *map)
 {
-	int 	y;
-	int		x;
 	int		fd;
 	int		ret;
 	char	*line;
-	char *recup;
-	int i;
+	char	*recup;
+	t_size	s;
 
 	mlx = mlx;
 	window = window;
 	ret = 1;
 	fd = open(map, O_RDONLY);
-	x = 200;
-	y = 200;
+	s.x = 50;
+	s.y = 50;
 	line = ft_strnew(15);
 	while (ret == 1)
 	{
 		ret = get_next_line(fd, &line);
-		while (*line != '\0')
+		ft_putstr("line = ");
+		ft_putendl(line);
+		s.j = 0;
+		while (line[s.j] != '\0')
 		{
 			recup = ft_strnew(15);
-			i = 0;
-			while (*line != ' ')
-				recup[i] = *line++;
-			y += ft_atoi(recup);
-			mlx_pixel_put(mlx, window, x, y, 0xFF0000);
-			mlx_pixel_put(mlx, window, x, y, 0xFF0000);
-			y -= ft_atoi(recup);
-			line++;
-			x += 20;
+			s.i = 0;
+			while (line[s.j] != ' ' && line[s.j] != '\0')
+				recup[s.i++] = line[s.j++];
+			s.y += ft_atoi(recup);
+			mlx_pixel_put(mlx, window, s.x, s.y, 0xFF0000);
+			s.y -= ft_atoi(recup);
+			while (line[s.j] == ' ' && line[s.j] != '\0')
+				s.j++;
+			s.x += 20;
 		}
 		line = ft_strnew(15);
-		y += 20;
-		x = 200;
+		s.y += 20;
+		s.x = 50;
 	}
 }

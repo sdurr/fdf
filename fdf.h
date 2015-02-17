@@ -6,7 +6,7 @@
 /*   By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/04 10:01:35 by sdurr             #+#    #+#             */
-/*   Updated: 2015/02/17 12:09:53 by sdurr            ###   ########.fr       */
+/*   Updated: 2015/02/17 15:28:26 by sdurr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,14 @@ typedef struct s_env
 	void	*window;
 	char	*map;
 }				t_env;
+
+typedef struct s_size
+{
+	int x;
+	int y;
+	int i;
+	int j;
+}				t_size;
 
 void		windows(void *mlx, void *window, char *map);
 int			expose_hook(t_env *e);
