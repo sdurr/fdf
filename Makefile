@@ -6,21 +6,33 @@
 #    By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/02/04 09:59:37 by sdurr             #+#    #+#              #
-#    Updated: 2015/02/04 10:01:01 by sdurr            ###   ########.fr        #
+#    Updated: 2015/02/17 12:16:23 by sdurr            ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
 NAME		= fdf
-SRC			=
+SRC			= main.c \
+				windows.c \
+				expose_hook.c \
+				key_hook.c \
+				mouse_hook.c \
 
 OBJ			= $(SRC:.c=.o)
+
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror
+
+export CFLAGS		= -Wall -Wextra -Werror
+
+HPATH		= -L/usr/X11/lib -lmlx -lXext -lX11
+
+PATHLIB    = -I libft/includes
 
 $(NAME)	:		$(OBJ)
-				@$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
+				Make -C libft/
+				@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(HPATH) -L libft/ -lft
 
 clean	:
+				Make -C libft/ fclean
 				rm -rf $(OBJ)
 				rm -rf *~
 
@@ -32,4 +44,4 @@ fclean	:		clean
 re		:		fclean all
 
 .c.o	:
-				$(CC) $(CFLAGS) -o $@ -c $<
+				$(CC) $(CFLAGS) $(PATHLIB) -o $@ -c $<
