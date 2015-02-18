@@ -6,17 +6,20 @@
 #    By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/02/04 09:59:37 by sdurr             #+#    #+#              #
-#    Updated: 2015/02/18 10:39:30 by sdurr            ###   ########.fr        #
+#    Updated: 2015/02/18 15:25:15 by sdurr            ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
 NAME		= fdf
 SRC			= main.c \
 				windows.c \
+				ft_create_elem.c \
+				transfer_map.c \
 				calc_x_y.c \
 				expose_hook.c \
 				key_hook.c \
 				mouse_hook.c \
+				define_color.c \
 
 OBJ			= $(SRC:.c=.o)
 
