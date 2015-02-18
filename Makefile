@@ -6,13 +6,14 @@
 #    By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/02/04 09:59:37 by sdurr             #+#    #+#              #
-#    Updated: 2015/02/17 12:16:23 by sdurr            ###   ########.fr        #
+#    Updated: 2015/02/18 10:39:30 by sdurr            ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
 NAME		= fdf
 SRC			= main.c \
 				windows.c \
+				calc_x_y.c \
 				expose_hook.c \
 				key_hook.c \
 				mouse_hook.c \
