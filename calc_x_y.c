@@ -6,7 +6,7 @@
 /*   By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/18 10:34:57 by sdurr             #+#    #+#             */
-/*   Updated: 2015/02/18 19:02:37 by sdurr            ###   ########.fr       */
+/*   Updated: 2015/02/19 17:11:18 by sdurr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,29 +19,43 @@
 void	calc_x_y(void *mlx, void *window, t_list *s)
 {
 	int color;
-	t_list *c;
+	int tmp;
 
-	c = s;
-	c = c->next;
-		c = c->next;
-	s = s->next;
+
+	ft_get_coord(s);
 	while (s->next != NULL)
 	{
+		tmp = s->x;
 		color = define_color(s->z);
-		if (s->z == 0)
-			while (s->x < c->x)
+//		if (c->z != 0)
+			point_trace(s, mlx, window, color);
+			/*	else
+		{
+			tmp = s->x;
+			while (s->x < s->x2)
 				mlx_pixel_put(mlx, window, s->x++, s->y, color);
-	if (s->z == 0)
-			while (s->y < c->y)
-			{
+			s->x = tmp;
+			while (s->y < s->y2)
 				mlx_pixel_put(mlx, window, s->x, s->y++, color);
-			}
-	c = c->next;
-	s = s->next;
-	ft_putstr("next ");
-	ft_putnbr(s->x);
-	ft_putchar ('\n');
+				}*/
+			ft_putstr("x = ");
+			ft_putnbr(s->x);
+			ft_putchar ('\n');
+			ft_putstr("x2 = ");
+			ft_putnbr(s->x2);
+			ft_putchar ('\n');
+			ft_putstr("y = ");
+			ft_putnbr(s->y);
+			ft_putchar ('\n');
+			ft_putstr("y2 = ");
+			ft_putnbr(s->y2);
+			ft_putchar ('\n');
+			ft_putchar ('\n');
+			s = s->next;
 	}
-	mlx_pixel_put(mlx, window, s->x, s->y, color);
+	tmp = s->x;
+	s->x = tmp;
+	point_trace(s, mlx, window, color);
+		mlx_pixel_put(mlx, window, s->x, s->y++, color);
 }
 

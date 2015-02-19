@@ -6,14 +6,17 @@
 #    By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/02/04 09:59:37 by sdurr             #+#    #+#              #
-#    Updated: 2015/02/18 15:25:15 by sdurr            ###   ########.fr        #
+#    Updated: 2015/02/19 15:07:23 by sdurr            ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
 NAME		= fdf
 SRC			= main.c \
+				ft_abs.c \
 				windows.c \
+				point_trace.c \
 				ft_create_elem.c \
+				ft_get_coord.c \
 				transfer_map.c \
 				calc_x_y.c \
 				expose_hook.c \
