@@ -6,7 +6,7 @@
 /*   By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/04 10:01:35 by sdurr             #+#    #+#             */
-/*   Updated: 2015/02/19 17:15:23 by sdurr            ###   ########.fr       */
+/*   Updated: 2015/02/20 18:25:09 by sdurr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,29 @@ typedef struct s_list
 	struct s_list *next;
 }				t_list;
 
-typedef struct s_trace
+typedef struct s_diag
 {
-	int sx;
 	int dx;
 	int dy;
-	int err;
-	int e2;
-	int sy;
-
-}				t_trace;
+	int x;
+	int y;
+	int d;
+	int e;
+	int ne;
+}				t_diag;
 
 void		windows(void *mlx, void *window, char *map);
 
-void		point_trace(t_list *s, void *mlx, void *window, int color);
+void		point_droite(t_list *s, void *mlx, void *window, int color);
+void		point_diag(t_list *s, void *mlx, void *window, int color);
+void		point_diag_revers(t_list *s, void *mlx, void *window, int color);
+void		point_vertical(t_list *s, void *mlx, void *window, int color);
+
 void		calc_x_y(void *mlx, void *window, t_list *s);
 void		ft_get_coord(t_list *s);
 void		transfer_map(t_list *lst, char *line, int ab, int or, char *test);
 
-t_list      *ft_create_elem(t_list *lst, int map, int ab, int alt, int y2);
+t_list      *ft_create_elem(t_list *lst, int map, int ab, int alt, int y2, int stop);
 
 int			ft_abs(int c);
 int			expose_hook(t_env *e);

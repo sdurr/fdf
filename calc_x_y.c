@@ -6,7 +6,7 @@
 /*   By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/18 10:34:57 by sdurr             #+#    #+#             */
-/*   Updated: 2015/02/19 17:11:18 by sdurr            ###   ########.fr       */
+/*   Updated: 2015/02/20 18:26:24 by sdurr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,43 +19,24 @@
 void	calc_x_y(void *mlx, void *window, t_list *s)
 {
 	int color;
-	int tmp;
+		t_list *c;
 
-
+	c = s;
+	c = c->next;
 	ft_get_coord(s);
 	while (s->next != NULL)
 	{
-		tmp = s->x;
 		color = define_color(s->z);
-//		if (c->z != 0)
-			point_trace(s, mlx, window, color);
-			/*	else
-		{
-			tmp = s->x;
-			while (s->x < s->x2)
-				mlx_pixel_put(mlx, window, s->x++, s->y, color);
-			s->x = tmp;
-			while (s->y < s->y2)
-				mlx_pixel_put(mlx, window, s->x, s->y++, color);
-				}*/
-			ft_putstr("x = ");
-			ft_putnbr(s->x);
-			ft_putchar ('\n');
-			ft_putstr("x2 = ");
-			ft_putnbr(s->x2);
-			ft_putchar ('\n');
-			ft_putstr("y = ");
-			ft_putnbr(s->y);
-			ft_putchar ('\n');
-			ft_putstr("y2 = ");
-			ft_putnbr(s->y2);
-			ft_putchar ('\n');
-			ft_putchar ('\n');
+		mlx_pixel_put(mlx, window, s->x, s->y, color);
+		if (s->x < s->x2 && s->y == c->y)
+			point_droite(s, mlx, window, color);
+		else if (c->y > s->y)
+			point_diag(s, mlx, window, color);
+		else
+			point_diag_revers(s, mlx, window, color);
+	point_vertical(s, mlx, window, color);
+		c= c->next;
 			s = s->next;
 	}
-	tmp = s->x;
-	s->x = tmp;
-	point_trace(s, mlx, window, color);
-		mlx_pixel_put(mlx, window, s->x, s->y++, color);
 }
 

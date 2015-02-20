@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   point_trace.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/02/16 19:18:05 by sdurr             #+#    #+#             */
-/*   Updated: 2015/02/20 18:55:54 by sdurr            ###   ########.fr       */
+/*   Created: 2015/02/19 13:16:26 by sdurr             #+#    #+#             */
+/*   Updated: 2015/02/20 18:29:08 by sdurr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
-#include <unistd.h>
 #include "fdf.h"
+#include "libft.h"
+#include <mlx.h>
 
-int		main(int ac, char **av)
+void	point_vertical(t_list *s, void *mlx, void *window, int color)
 {
-	t_env e;
+	int y;
 
-	ac = ac;
-	if (ac == 2)
-		e.map = av[1];
-	e.mlx = mlx_init();
-	e.window = mlx_new_window(e.mlx, 2000, 1040, "fdf");
-	mlx_expose_hook(e.window, expose_hook, &e);
-	mlx_key_hook(e.window, key_hook, &e);
-	mlx_mouse_hook(e.window, mouse_hook, &e);
-	mlx_loop(e.mlx);
-
-	return (0);
+	y = s->y;
+		while (y < s->y2)
+		{
+			if (s->y - s->y2 < -30)
+				color += 100000;
+			else if (s->y - s->y2 > -30)
+					color += 100000;
+			mlx_pixel_put(mlx, window, s->x, y++, color);
+		}
 }
+
+

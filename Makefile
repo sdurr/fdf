@@ -6,7 +6,7 @@
 #    By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/02/04 09:59:37 by sdurr             #+#    #+#              #
-#    Updated: 2015/02/19 15:07:23 by sdurr            ###   ########.fr        #
+#    Updated: 2015/02/20 16:47:09 by sdurr            ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -14,7 +14,10 @@ NAME		= fdf
 SRC			= main.c \
 				ft_abs.c \
 				windows.c \
-				point_trace.c \
+				point_droite.c \
+				point_diag.c \
+				point_diag_revers.c \
+				point_vertical.c \
 				ft_create_elem.c \
 				ft_get_coord.c \
 				transfer_map.c \
