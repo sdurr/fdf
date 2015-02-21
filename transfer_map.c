@@ -6,7 +6,7 @@
 /*   By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/18 15:01:08 by sdurr             #+#    #+#             */
-/*   Updated: 2015/02/20 18:27:31 by sdurr            ###   ########.fr       */
+/*   Updated: 2015/02/21 11:43:45 by sdurr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void		transfer_map(t_list *lst, char *line, int ab, int or, char *test)
 			stop = 0;
 		else
 			stop = 30;
+		ab+=10;
 		ft_create_elem(lst, or+=30, ab, ft_atoi(recup), i, stop);
 	}
 }

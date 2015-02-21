@@ -6,7 +6,7 @@
 /*   By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/19 13:16:26 by sdurr             #+#    #+#             */
-/*   Updated: 2015/02/20 17:38:24 by sdurr            ###   ########.fr       */
+/*   Updated: 2015/02/21 11:53:09 by sdurr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	point_diag(t_list *s, void *mlx, void *window, int color)
 			d.x++;
 			d.y++;
 		}
-		color += 100000;
+		//color += 100000;
 		mlx_pixel_put(mlx, window, d.x, d.y, color);
 
 	}

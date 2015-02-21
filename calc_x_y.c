@@ -6,7 +6,7 @@
 /*   By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/18 10:34:57 by sdurr             #+#    #+#             */
-/*   Updated: 2015/02/20 18:26:24 by sdurr            ###   ########.fr       */
+/*   Updated: 2015/02/21 11:54:37 by sdurr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	calc_x_y(void *mlx, void *window, t_list *s)
 			point_diag(s, mlx, window, color);
 		else
 			point_diag_revers(s, mlx, window, color);
-	point_vertical(s, mlx, window, color);
+//			point_vertical(s, mlx, window, color);
 		c= c->next;
 			s = s->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/17 11:22:13 by sdurr             #+#    #+#             */
-/*   Updated: 2015/02/20 18:28:49 by sdurr            ###   ########.fr       */
+/*   Updated: 2015/02/21 11:51:02 by sdurr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void		windows(void *mlx, void *window, char *map)
 	fd = open(map, O_RDONLY);
 	fd2 = open(map, O_RDONLY);
 	line = ft_strnew(150);
-	or = 50;
-	ab = 50;
+	or = 100;
+	ab = 100;
 	get_next_line(fd2, &test_y);
 	while(ret == 1)
 	{
@@ -44,8 +44,11 @@ void		windows(void *mlx, void *window, char *map)
 		if (i == 0)
 			test_y = NULL;
 		transfer_map(&lst, line, ab, or, test_y);
-		or = 50;
-		ab += 30;
+		or -= 10;
+		ft_putstr("x = ");
+		ft_putnbr(or);
+		ft_putchar('\n');
+		ab += 50;
 		ft_putstr("line = ");
 		  ft_putendl(line);
 		line = ft_strnew(150);
