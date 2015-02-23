@@ -6,7 +6,7 @@
 #    By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/02/04 09:59:37 by sdurr             #+#    #+#              #
-#    Updated: 2015/02/20 16:47:09 by sdurr            ###   ########.fr        #
+#    Updated: 2015/02/23 13:05:18 by sdurr            ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -18,6 +18,7 @@ SRC			= main.c \
 				point_diag.c \
 				point_diag_revers.c \
 				point_vertical.c \
+				point_vert.c \
 				ft_create_elem.c \
 				ft_get_coord.c \
 				transfer_map.c \

@@ -6,7 +6,7 @@
 /*   By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/19 13:16:26 by sdurr             #+#    #+#             */
-/*   Updated: 2015/02/21 11:54:19 by sdurr            ###   ########.fr       */
+/*   Updated: 2015/02/23 14:22:23 by sdurr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	point_diag_revers(t_list *s, void *mlx, void *window, int color)
 
 	c = s;
 	c = c->next;
+	s->x2 = s->x2 + c->z;
 	d.dx = s->x2 - s->x;
 	d.dy = c->y - s->y;
 	d.d = 2 * d.dy - d.dx;
@@ -29,7 +30,7 @@ void	point_diag_revers(t_list *s, void *mlx, void *window, int color)
 	d.x = s->x;
 	d.y = s->y;
 	mlx_pixel_put(mlx, window, d.x, d.y, color);
-	d.x--;
+//	d.x--;
 	while (d.x < s->x2)
 	{
 		if (d.d <= 0)
@@ -43,7 +44,7 @@ void	point_diag_revers(t_list *s, void *mlx, void *window, int color)
 			//d.x++;
 			d.y--;
 		}
-		color+=100000;
+		color=0x005252;
 		mlx_pixel_put(mlx, window, d.x, d.y, color);
 
 	}
