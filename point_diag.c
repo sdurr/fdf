@@ -6,7 +6,7 @@
 /*   By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/19 13:16:26 by sdurr             #+#    #+#             */
-/*   Updated: 2015/02/23 14:38:33 by sdurr            ###   ########.fr       */
+/*   Updated: 2015/02/24 10:07:06 by sdurr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	point_diag(t_list *s, void *mlx, void *window, int color)
 
 	c = s;
 	c = c->next;
-	s->x2 = s->x2 + c->z;
+	if (c->z != 0)
+		s->x2 = s->x2 + c->z;
 	if ((c->z != 0 && s->z == 0) || (s->z != 0 && c->z == 0))
 		color = 0x005252;
 	d.dx = s->x2 - s->x;

@@ -6,7 +6,7 @@
 /*   By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/18 10:34:57 by sdurr             #+#    #+#             */
-/*   Updated: 2015/02/23 17:32:30 by sdurr            ###   ########.fr       */
+/*   Updated: 2015/02/24 10:05:25 by sdurr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,26 @@ void	calc_x_y(void *mlx, void *window, t_list *s)
 
 	c = s;
 	c = c->next;
-		c = c->next;
+	c = c->next;
+	ft_get_coord(s);
 	s = s->next;
 	while (s->next != NULL)
 	{
-		color = define_color(s->z);
-		if (s->z == 0)
+		mlx_pixel_put(mlx, window, s->x, s->y, color);
+		color = define_color(c->z);
+		if (s->x < c->x)
+			point_diag(s, mlx, window, color);
+		point_vert(s, mlx, window, color);
+/*		if (s->z == 0)
 			while (s->x < c->x)
 				mlx_pixel_put(mlx, window, s->x++, s->y, color);
-	if (s->z == 0)
+*//*	if (s->z == 0)
 			while (s->y < c->y)
 			{
 				mlx_pixel_put(mlx, window, s->x, s->y++, color);
-			}
+				}*/
 	c = c->next;
 	s = s->next;
-	ft_putstr("next ");
-	ft_putnbr(s->x);
-	ft_putchar ('\n');
 	}
-	mlx_pixel_put(mlx, window, s->x, s->y, color);
+		mlx_pixel_put(mlx, window, s->x, s->y, color);
 }
