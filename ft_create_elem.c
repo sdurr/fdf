@@ -1,33 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   transfert_map.c                                    :+:      :+:    :+:   */
+/*   ft_create_elem.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/02/18 15:01:08 by sdurr             #+#    #+#             */
-/*   Updated: 2015/02/26 14:32:21 by sdurr            ###   ########.fr       */
+/*   Created: 2015/02/26 13:59:30 by sdurr             #+#    #+#             */
+/*   Updated: 2015/02/26 14:45:30 by sdurr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include <stdlib.h>
 #include "libft.h"
 
-void		transfer_map(t_list *lst, char *line, t_base *s, t_env *e)
+t_list		*ft_create_elem(t_list *lst, int z, t_base *s)
 {
-	char	*recup;
-	int stop;
-	int i;
+	t_list 		*elem;
+	t_list 		*begin;
 
-	while(*line != '\0')
+	begin = lst;
+	elem = malloc(sizeof(t_list));
+	elem->x = s->x;
+	elem->y = s->y;
+	elem->z = z;
+	elem->next = NULL;
+	ft_putnbr(z);
+	if (!lst)
+		return (elem);
+	while (lst->next != NULL)
 	{
-		i = 0;
-		recup = ft_strnew(15);
-		while(*line != ' ' && *line != '\0')
-			recup[i++] = *line++;
-		while(*line == ' ' && *line != '\0')
-			line++;
-		s->x += 10 * e->size;
-		ft_create_elem(lst, ft_atoi(recup), s);
+	ft_putstr("blabl");
+		lst = lst->next;
 	}
+
+	lst->next = elem;
+	return(begin);
 }

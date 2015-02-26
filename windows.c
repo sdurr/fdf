@@ -6,7 +6,7 @@
 /*   By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/17 11:22:13 by sdurr             #+#    #+#             */
-/*   Updated: 2015/02/26 11:49:03 by sdurr            ###   ########.fr       */
+/*   Updated: 2015/02/26 14:36:11 by sdurr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,17 @@ void		windows(t_env *e)
 		ft_putendl("Error");
 		exit (0);
 	}
+	s.i =-1;
 	while (ret == 1)
 	{
+		line = ft_strnew(150);
 		s.x =  (50 + e->coeff_move_x) * e->size;
 		s.y =  (50 + e->coeff_move_y) * e->size;
+		s.i++;
+		ft_putstr("s->i  =");
+		ft_putnbr(s.i);
+		ft_putchar('\n');
 		ret = get_next_line(fd, &line);
-		transfer_map(&point, line, s);
+		transfer_map(&point, line, &s, e);
 	}
 }

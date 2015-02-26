@@ -14,6 +14,7 @@ NAME		= fdf
 SRC			= main.c \
 				windows.c \
 				transfer_map.c \
+				ft_create_elem.c \
 				expose_hook.c \
 				key_hook.c \
 
