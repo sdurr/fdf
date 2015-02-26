@@ -6,7 +6,7 @@
 /*   By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/17 11:30:05 by sdurr             #+#    #+#             */
-/*   Updated: 2015/02/17 12:03:20 by sdurr            ###   ########.fr       */
+/*   Updated: 2015/02/26 11:38:52 by sdurr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 int		expose_hook(t_env *e)
 {
-	windows(e->mlx, e->window, e->map);
+	windows(e);
 	return (0);
 }

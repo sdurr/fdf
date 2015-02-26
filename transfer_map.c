@@ -6,19 +6,18 @@
 /*   By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/18 15:01:08 by sdurr             #+#    #+#             */
-/*   Updated: 2015/02/24 09:44:05 by sdurr            ###   ########.fr       */
+/*   Updated: 2015/02/26 11:51:54 by sdurr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "libft.h"
 
-void		transfer_map(t_list *lst, char *line, int ab, int or, char *test)
+void		transfer_map(t_list *lst, char *line, t_base s)
 {
 	char	*recup;
-	int		i;
-	char	*recup_y2;
 	int stop;
+	int i;
 
 	while(*line != '\0')
 	{
@@ -28,21 +27,7 @@ void		transfer_map(t_list *lst, char *line, int ab, int or, char *test)
 			recup[i++] = *line++;
 		while(*line == ' ' && *line != '\0')
 			line++;
-		i = 0;
-		recup_y2 = ft_strnew(15);
-		if (test != NULL)
-		{
-			while(*test != ' ' && *test != '\0')
-				recup_y2[i++] = *test++;
-			while(*test == ' ' && *test != '\0')
-				test++;
-			i = ft_atoi(recup_y2);
-		}
 		if (*line == '\0')
-			stop = 0;
-		else
 			stop = 30;
-		ab+=15;
-		ft_create_elem(lst, or+= 30, ab, ft_atoi(recup), i, stop);
 	}
 }
