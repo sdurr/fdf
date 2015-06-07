@@ -1,33 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   recup_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/06/04 09:16:11 by sdurr             #+#    #+#             */
-/*   Updated: 2015/06/07 15:48:36 by sdurr            ###   ########.fr       */
+/*   Created: 2015/06/07 12:36:47 by sdurr             #+#    #+#             */
+/*   Updated: 2015/06/07 15:26:49 by sdurr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
-#include <unistd.h>
 #include "fdf.h"
-#include "libft.h"
+#include <stdlib.h>
+#include <fcntl.h>
+#include "./libft/libft.h"
 
-int main(int ac, char **av)
+int			**recup_map(char *file, t_env *e)
 {
-	t_env e;
+	int		fd;
+	char	*line;
+	int		**tab;
+	char	**split;
 
-	if (ac != 2)
-		return (0);
-	e.map = recup_map(av[1], &e);
-	ft_putnbr(e.width);
-	ft_putnbr(e.height);
-	e.mlx = mlx_init();
-	e.win = mlx_new_window(e.mlx, ((e.width + 50) * 10), ((e.height + 50) * 8), "fdf");
-	mlx_expose_hook(e.win, expose_hook, &e);
-	mlx_key_hook(e.win, key_hook, &e);
-	mlx_loop(e.mlx);
-	return (0);
+	tab = NULL;
+	if ((fd = open(file, O_RDONLY)) < 0)
+	{
+		ft_putendl_fd("Connot open the file", 2);
+		exit(0);
+	}
+	e->height = 0;
+	while (get_next_line(fd, &line) == 1)
+	{
+		split = ft_strsplit(line, ' ');
+		tab = ft_realloc(tab, split, e);
+		e->height++;
+	}
+	return (tab);
 }
