@@ -1,3 +1,5 @@
+
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -6,7 +8,7 @@
 /*   By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/07 13:01:09 by sdurr             #+#    #+#             */
-/*   Updated: 2015/06/07 15:46:24 by sdurr            ###   ########.fr       */
+/*   Updated: 2015/06/07 16:16:31 by sdurr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +29,13 @@ static int	**ft_realloc_new(char **split, int x, int y, int **old)
 	i = ft_tablen(split);
 	while (old[++x])
 	{
-		if (!(new[x] = (int *)malloc(sizeof(int) * i)))
+		if (!(new[x] = (int *)malloc(sizeof(int) * i + 1)))
 			return (NULL);
 		y = -1;
 		while (++y <= i)
 			new[x][y] = old[x][y];
 	}
-	if (!(new[x] = (int *)malloc(sizeof(int) * ft_tablen(split))))
+	if (!(new[x] = (int *)malloc(sizeof(int) * ft_tablen(split) + 1)))
 		return (NULL);
 	y = -1;
 	while (split[++y])

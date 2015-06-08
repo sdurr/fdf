@@ -6,7 +6,7 @@
 /*   By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/04 11:28:28 by sdurr             #+#    #+#             */
-/*   Updated: 2015/06/07 15:55:06 by sdurr            ###   ########.fr       */
+/*   Updated: 2015/06/08 11:54:20 by sdurr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,12 @@ int expose_hook(t_env *e)
 	int i;
 	int j;
 	int width;
-	int test;
+	int coeff;
+	int ptx;
+	int pty;
 
-	x = 50;
-	y = 50;
+	x = 30;
+	y = 30;
 	i = 0;
 	j = 0;
 	while (e->height > 0)
@@ -34,24 +36,20 @@ int expose_hook(t_env *e)
 		width = e->width;
 		while (width >= 0)
 		{
-			y += e->map[i][j];
-			test = y + 30;
-			while(y < test)
-				mlx_pixel_put(e->mlx, e->win, x, y++, 0xFF0000);
-			y -= 30;
-			test = x+ 30;
-			while(x < test)
-				mlx_pixel_put(e->mlx, e->win, x++, y, 0xFF0000);
-
-				y -= e->map[i][j];
+			coeff = 3;
+			ptx = (int)(((0.07 *(float)x - 0.07 * (float) y)) * coeff + 370);
+			pty = (int)(((0.04 * (float)x + 0.04 * (float)y) - 0.2 *(float)(e->map[i][j])) * coeff + 370);
+			if (e->map[i][j] == 0)
+				mlx_pixel_put(e->mlx, e->win, ptx, pty, 0xFFFF00);
+			else
+				mlx_pixel_put(e->mlx, e->win, ptx, pty, 0xFF0000);
 			j++;
 			width--;
+			x += 100;
 		}
-
-		y+= 30;
-
+		y+= 100;
 		j = 0;
-		x = 50;
+		x = 30;
 		i++;
 		e->height--;
 	}
