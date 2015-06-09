@@ -6,7 +6,7 @@
 /*   By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/04 11:28:28 by sdurr             #+#    #+#             */
-/*   Updated: 2015/06/09 13:27:24 by sdurr            ###   ########.fr       */
+/*   Updated: 2015/06/09 13:31:30 by sdurr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,49 +17,38 @@
 
 void		bresenham(int x0, int y0,int x1, int y1, t_env *env, int i, int j)
 {
-	int x;
-	int y;
-	int dx;
-	int dy;
-	int ince;
-	int incne;
-	int e;
-	int sx;
-	int sy;
-	int err;
-	int e2;
+	t_bressen b;
 
-	y = y0;
-	dx = x1 - x0;
-	dy = y1 - y0;
-	if (dx < 0)
-		dx = -dx;
-	if (dy < 0)
-		dy = -dy;
-	ince = 2 * dy;
-	incne = 2 *(dy - dx);
-	e = 2 * dy - dx;
-	x = x0;
-	sx =  x0 < x1 ? 1 : -1;
-	sy = y0 < y1 ? 1 : -1;
-	err = (dx > dy ? dx : -dy) /2;
+	b.y = y0;
+	b.dx = x1 - x0;
+	b.dy = y1 - y0;
+	if (b.dx < 0)
+		b.dx = -b.dx;
+	if (b.dy < 0)
+		b.dy = -b.dy;
+	b.ince = 2 * b.dy;
+	b.incne = 2 *(b.dy - b.dx);
+	b.x = x0;
+	b.sx =  x0 < x1 ? 1 : -1;
+	b.sy = y0 < y1 ? 1 : -1;
+	b.err = (b.dx > b.dy ? b.dx : -b.dy) /2;
 	while (1)
 	{
 		(void)i;
 		(void)j;
 		mlx_pixel_put(env->mlx, env->win, x0, y0, 0xFFFFFF);
-		e2 = err;
+		b.e2 = b.err;
 		if (x0 == x1 && y0 == y1)
 			break;
-		if (e2 > -dx)
+		if (b.e2 > -b.dx)
 		{
-			err -= dy;
-			x0 += sx;
+			b.err -= b.dy;
+			x0 += b.sx;
 		}
-		if (e2 < dy)
+		if (b.e2 < b.dy)
 		{
-			err += dx;
-			y0 += sy;
+			b.err += b.dx;
+			y0 += b.sy;
 		}
 	}
 }
