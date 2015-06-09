@@ -6,7 +6,7 @@
 /*   By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/07 13:01:09 by sdurr             #+#    #+#             */
-/*   Updated: 2015/06/09 16:14:33 by sdurr            ###   ########.fr       */
+/*   Updated: 2015/06/09 17:33:50 by sdurr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ static int	**ft_realloc_new(char **split, int x, int y, int **old)
 	while (split[++y])
 		new[x][y] = ft_atoi(split[y]);
 	new[x + 1] = NULL;
-	while (--x >= 0)
-		ft_memdel((void **)&old[x]);
 	return (new);
 }
 

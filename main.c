@@ -6,7 +6,7 @@
 /*   By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/04 09:16:11 by sdurr             #+#    #+#             */
-/*   Updated: 2015/06/09 16:21:50 by sdurr            ###   ########.fr       */
+/*   Updated: 2015/06/09 17:32:38 by sdurr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ int main(int ac, char **av)
 		return (-1);
 	}
 	e.map = recup_map(av[1], &e);
-	ft_putnbr(e.width);
-	ft_putnbr(e.height);
 	e.mlx = mlx_init();
 	e.win = mlx_new_window(e.mlx, ((e.width + 50) * 15),\
 	((e.height + 50) * 15), "fdf");
