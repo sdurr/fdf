@@ -6,7 +6,7 @@
 /*   By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/04 11:28:28 by sdurr             #+#    #+#             */
-/*   Updated: 2015/06/09 14:05:57 by sdurr            ###   ########.fr       */
+/*   Updated: 2015/06/09 15:30:32 by sdurr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void			loop(t_bressen *b)
 void			bresenham(int x1, int y1, t_env *env)
 {
 	t_bressen	b;
+	int color;
 
 	b.x0 = env->tab_x[env->y][env->x];
 	b.y0 = env->tab_y[env->y][env->x];
@@ -50,7 +51,19 @@ void			bresenham(int x1, int y1, t_env *env)
 	b.err = (b.dx > b.dy ? b.dx : -b.dy) / 2;
 	while (1)
 	{
-		mlx_pixel_put(env->mlx, env->win, b.x0, b.y0, 0xFFFFFF);
+
+		if (env->map[env->y][env->x] > 0 || (env->y < env->height && env->map[env->y + 1][env->x] > 0 && b.x0 > x1))
+		{
+			color = 0xffff00;
+			mlx_pixel_put(env->mlx, env->win, b.x0, b.y0, (color = color -  (env->map[env->y][env->x] * 4000)));
+		}
+		else if (env->map[env->y][env->x] < 0)
+		{
+			color = 0x66ffff;
+			mlx_pixel_put(env->mlx, env->win, b.x0, b.y0, (color = color + (env->map[env->y][env->x] * 4000)));
+		}
+		else
+			mlx_pixel_put(env->mlx, env->win, b.x0, b.y0, 0xffffff);
 		b.e2 = b.err;
 		if (b.x0 == x1 && b.y0 == y1)
 			break ;
@@ -86,10 +99,25 @@ void			init_tab(t_env *e, int i, int j)
 		{
 			init.coeff = 3;
 			projection_isometrique(e, init, i, j);
-			init.x += 100;
+			if (e->width > 100)
+				init.x += e->width / 5;
+			else if (e->width > 50)
+				init.x += e->width / 3;
+			else if (e->width > 35)
+				init.x += e->width / 2;
+			else
+				init.x += (e->width * 4);
 			j++;
 		}
-		init.y += 100;
+		if (e->width > 100)
+			init.y += e->width / 5;
+		else if (e->width > 50)
+			init.y += e->width / 3;
+		else if (e->width > 35)
+			init.y += e->width / 2;
+		else
+			init.y += (e->width * 4);
+
 		i++;
 	}
 }
@@ -105,8 +133,8 @@ int				expose_hook(t_env *e)
 	init_tab(e, i, j);
 	while (e->height > 0)
 	{
-		width = e->width;
-		while (width > 0)
+		width = e->width + 1;
+		while (--width > 0)
 		{
 			e->y = i;
 			e->x = j;
@@ -115,7 +143,6 @@ int				expose_hook(t_env *e)
 			if (e->map[i + 1])
 				bresenham(e->tab_x[i + 1][j], e->tab_y[i + 1][j], e);
 			j++;
-			width--;
 		}
 		j = 0;
 		i++;

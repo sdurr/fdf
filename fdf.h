@@ -6,7 +6,7 @@
 /*   By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/04 09:47:06 by sdurr             #+#    #+#             */
-/*   Updated: 2015/06/09 13:51:04 by sdurr            ###   ########.fr       */
+/*   Updated: 2015/06/09 15:19:08 by sdurr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ typedef struct s_env
 	int		**tab_y;
 	int		x;
 	int		y;
+	int color_a;
+	int color_b;
+	int color_c;
 }				t_env;
 
 typedef struct s_bressen
