@@ -6,7 +6,7 @@
 /*   By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/04 11:28:28 by sdurr             #+#    #+#             */
-/*   Updated: 2015/06/08 17:19:35 by sdurr            ###   ########.fr       */
+/*   Updated: 2015/06/09 11:50:41 by sdurr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,144 +15,55 @@
 #include <mlx.h>
 #include <stdlib.h>
 
-void		bresenham(int x, int y,int x1, int y1, t_env *env, int i, int j)
+void		bresenham(int x0, int y0,int x1, int y1, t_env *env, int i, int j)
 {
-	int x0;
-	int y0;
+	int x;
+	int y;
 	int dx;
 	int dy;
 	int ince;
 	int incne;
 	int e;
+	int sx;
+	int sy;
+	int err;
+	int e2;
 
-	y0 = y;
-	dx = x1 - x;
-	dy = y1 - y;
+	y = y0;
+	dx = x1 - x0;
+	dy = y1 - y0;
+	if (dx < 0)
+		dx = -dx;
+	if (dy < 0)
+		dy = -dy;
 	ince = 2 * dy;
 	incne = 2 *(dy - dx);
 	e = 2 * dy - dx;
-	while (x  < x1)
+	x = x0;
+	sx =  x0 < x1 ? 1 : -1;
+	sy = y0 < y1 ? 1 : -1;
+	err = (dx > dy ? dx : -dy) /2;
+	while (1)
 	{
-		x0 = x;
-		x++;
-			if (env->map[i][j] == 0)
-				mlx_pixel_put(env->mlx, env->win, x0, y0, 0xFFFF00);
-			else
-				mlx_pixel_put(env->mlx, env->win, x0, y0, 0xFF0000);
-			if (e >= 0)
-			{
-				y0 += 1;
-				e+= incne;
-			}
-			else
-				e+= ince;
+		(void)i;
+		(void)j;
+		mlx_pixel_put(env->mlx, env->win, x0, y0, 0xFFFFFF);
+		e2 = err;
+		if (x0 == x1 && y0 == y1)
+			break;
+		if (e2 > -dx)
+		{
+			err -= dy;
+			x0 += sx;
+		}
+		if (e2 < dy)
+		{
+			err += dx;
+			y0 += sy;
+		}
 	}
 }
-void		bresenham_y1(int x, int y,int x1, int y1, t_env *env, int i, int j)
-{
-	int x0;
-	int y0;
-	int dx;
-	int dy;
-	int ince;
-	int incne;
-	int e;
 
-	y0 = y;
-	dx = x1 - x;
-	dy = y1 - y;
-	ince = 2 * dy;
-	incne = 2 *(dy - dx);
-	e = 2 * dy - dx;
-	while (x  < x1)
-	{
-		x0 = x;
-		x++;
-			if (env->map[i][j] == 0)
-				mlx_pixel_put(env->mlx, env->win, x0, y0, 0xFFFF00);
-			else
-				mlx_pixel_put(env->mlx, env->win, x0, y0, 0xFF0000);
-			if (e >= 0)
-			{
-				y0 -= 1;
-				e+= incne;
-			}
-			else
-				e+= ince;
-	}
-}
-void		bresenham_y2(int x, int y,int x1, int y1, t_env *env, int i, int j)
-{
-	int x0;
-	int y0;
-	int dx;
-	int dy;
-	int ince;
-	int incne;
-	int e;
-
-	y0 = y;
-	dx = x1 - x;
-	dy = y1 - y;
-	ince = 2 * dy;
-	incne = 2 *(dy - dx);
-	e = 2 * dy - dx;
-	x0 = x;
-	while (x  < x1)
-	{
-		x0 = x;
-		x++;
-			if (env->map[i - 1][j] == 0)
-				mlx_pixel_put(env->mlx, env->win, x0, y0, 0xFFFF00);
-			else
-				mlx_pixel_put(env->mlx, env->win, x0, y0, 0xFF0000);
-			if (e <= 0)
-			{
-				y0 -= 1;
-				e+= incne;
-			}
-			else
-			{
-				e+= ince;
-			}
-	}
-}
-void		bresenham_y3(int x, int y,int x1, int y1, t_env *env, int i, int j)
-{
-	int x0;
-	int y0;
-	int dx;
-	int dy;
-	int ince;
-	int incne;
-	int e;
-
-	y0 = y;
-	dx = x1 - x;
-	dy = y1 - y;
-	ince = 2 * dx;
-	incne = 2 *(dx - dy);
-	e = 2 * dx - dy;
-	x0 = x;
-	while (y  > y1)
-	{
-		y0 = y;
-		y--;
-			if (env->map[i - 1][j] == 0)
-				mlx_pixel_put(env->mlx, env->win, x0, y0, 0xFFFF00);
-			else
-				mlx_pixel_put(env->mlx, env->win, x0, y0, 0xFF0000);
-			if (e <= 0)
-			{
-				x0 += 1;
-				e+= incne;
-			}
-			else
-			{
-				e+= ince;
-			}
-	}
-}
 int expose_hook(t_env *e)
 {
 	int x;
@@ -161,13 +72,37 @@ int expose_hook(t_env *e)
 	int j;
 	int width;
 	int coeff;
-	int ptx;
-	int pty;
-	int ptx1;
-	int pty1;
+	int		**tab_x;
+	int		**tab_y;
+	int height;
 
-	x = 30;
+	height = e->height;
+	tab_x = (int **)malloc(sizeof(int *) * height + 1);
+	tab_y = (int **)malloc(sizeof(int *) * height + 1);
+	i = 0;
 	y = 30;
+	while (height)
+	{
+		j = 0;
+		width = e->width;
+		tab_x[i] = (int *)malloc(sizeof(int) * width + 1);
+		tab_y[i] = (int *)malloc(sizeof(int) * width + 1);
+		x = 30;
+		while (width)
+		{
+			coeff = 3;
+			tab_x[i][j] = (int)(((0.07 *(float)x - 0.07 * (float) y)) * coeff + 370);
+			tab_y[i][j] = (int)(((0.04 * (float)x + 0.04 * (float)y) - 0.2 *(float)(e->map[i][j])) * coeff + 370);
+			x += 100;
+			width--;
+			j++;
+		}
+		y+=100;
+		i++;
+		height--;
+	}
+	tab_x[i] = NULL;
+	tab_y[i] = NULL;
 	i = 0;
 	j = 0;
 	while (e->height > 0)
@@ -175,26 +110,14 @@ int expose_hook(t_env *e)
 		width = e->width;
 		while (width > 0)
 		{
-			coeff = 3;
-			ptx = (int)(((0.07 *(float)x - 0.07 * (float) y)) * coeff + 370);
-			ptx1 = (int)(((0.07 *(float)(x+100) - 0.07 * (float) y)) * coeff + 370);
-			pty = (int)(((0.04 * (float)x + 0.04 * (float)y) - 0.2 *(float)(e->map[i][j])) * coeff + 370);
-			pty1 = (int)(((0.04 * (float)x + 0.04 * (float)(y + 100)) - 0.2 *(float)(e->map[i][j])) * coeff + 370);
-			if ((e->map[i][j] == 0 && e->map[i][j + 1] == 0) || e->map[i][j] == e->map[i][j + 1])
-				bresenham(ptx, pty, ptx1, pty1, e, i, j);
-			if (e->map[i - 1] && e->map[i - 1][j] == e->map[i][j])
-				bresenham_y1(ptx, pty, ptx1, pty1, e, i, j);
-
-			pty1 = (int)(((0.04 * (float)x + 0.04 * (float)(y + 100)) - 0.2 *(float)(e->map[i][j + 1])) * coeff + 370);
-			if (e->map[i][j + 1] != e->map[i][j])
-			bresenham(ptx, pty, ptx1, pty1, e, i, j + 1);
+			if (width > 1)
+				bresenham(tab_x[i][j], tab_y[i][j], tab_x[i][j + 1], tab_y[i][j + 1], e, i, j);
+			if (e->map[i + 1])
+				bresenham(tab_x[i][j], tab_y[i][j], tab_x[i + 1][j], tab_y[i + 1][j], e, i, j);
 			j++;
 			width--;
-			x += 100;
 		}
-		y += 100;
 		j = 0;
-		x = 30;
 		i++;
 		e->height--;
 	}
