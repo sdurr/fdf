@@ -6,7 +6,7 @@
 /*   By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/04 11:28:28 by sdurr             #+#    #+#             */
-/*   Updated: 2015/06/09 15:30:32 by sdurr            ###   ########.fr       */
+/*   Updated: 2015/06/09 16:14:01 by sdurr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,96 +29,51 @@ void			loop(t_bressen *b)
 	}
 }
 
-void			bresenham(int x1, int y1, t_env *env)
+static void		init_bressen(t_env *env, t_bressen *b, int x1, int y1)
+{
+	b->x0 = env->tab_x[env->y][env->x];
+	b->y0 = env->tab_y[env->y][env->x];
+	b->y = b->y0;
+	b->dx = x1 - b->x0;
+	b->dy = y1 - b->y0;
+	if (b->dx < 0)
+		b->dx = -b->dx;
+	if (b->dy < 0)
+		b->dy = -b->dy;
+	b->ince = 2 * b->dy;
+	b->incne = 2 * (b->dy - b->dx);
+	b->x = b->x0;
+	b->sx = b->x0 < x1 ? 1 : -1;
+	b->sy = b->y0 < y1 ? 1 : -1;
+	b->err = (b->dx > b->dy ? b->dx : -b->dy) / 2;
+}
+
+void			bresenham(int x1, int y1, t_env *e)
 {
 	t_bressen	b;
-	int color;
+	int			c;
 
-	b.x0 = env->tab_x[env->y][env->x];
-	b.y0 = env->tab_y[env->y][env->x];
-	b.y = b.y0;
-	b.dx = x1 - b.x0;
-	b.dy = y1 - b.y0;
-	if (b.dx < 0)
-		b.dx = -b.dx;
-	if (b.dy < 0)
-		b.dy = -b.dy;
-	b.ince = 2 * b.dy;
-	b.incne = 2 * (b.dy - b.dx);
-	b.x = b.x0;
-	b.sx = b.x0 < x1 ? 1 : -1;
-	b.sy = b.y0 < y1 ? 1 : -1;
-	b.err = (b.dx > b.dy ? b.dx : -b.dy) / 2;
+	init_bressen(e, &b, x1, y1);
 	while (1)
 	{
-
-		if (env->map[env->y][env->x] > 0 || (env->y < env->height && env->map[env->y + 1][env->x] > 0 && b.x0 > x1))
+		if (e->map[e->y][e->x] > 0
+			|| (e->y < e->height && e->map[e->y + 1][e->x] > 0 && b.x0 > x1))
 		{
-			color = 0xffff00;
-			mlx_pixel_put(env->mlx, env->win, b.x0, b.y0, (color = color -  (env->map[env->y][env->x] * 4000)));
+			c = 0xffff00;
+			mlx_pixel_put(e->mlx, e->win, b.x0, b.y0, \
+	c -= e->map[e->y][e->x] * 4000);
 		}
-		else if (env->map[env->y][env->x] < 0)
+		else if (e->map[e->y][e->x] < 0 && (c = 0x66ffff))
 		{
-			color = 0x66ffff;
-			mlx_pixel_put(env->mlx, env->win, b.x0, b.y0, (color = color + (env->map[env->y][env->x] * 4000)));
+			mlx_pixel_put(e->mlx, e->win, b.x0, b.y0, \
+	c += e->map[e->y][e->x] * 4000);
 		}
 		else
-			mlx_pixel_put(env->mlx, env->win, b.x0, b.y0, 0xffffff);
+			mlx_pixel_put(e->mlx, e->win, b.x0, b.y0, 0xffffff);
 		b.e2 = b.err;
 		if (b.x0 == x1 && b.y0 == y1)
 			break ;
 		loop(&b);
-	}
-}
-
-void			projection_isometrique(t_env *e, t_init init, int i, int j)
-{
-	e->tab_x[i][j] = (int)(((0.07 * \
-	(float)init.x - 0.07 * (float)init.y)) * init.coeff + 370);
-	e->tab_y[i][j] = (int)(((0.04 * \
-	(float)init.x + 0.04 * (float)init.y) - 0.2 * \
-	(float)(e->map[i][j])) * init.coeff + 370);
-}
-
-void			init_tab(t_env *e, int i, int j)
-{
-	t_init		init;
-
-	init.height = e->height;
-	e->tab_x = (int **)malloc(sizeof(int *) * init.height + 1);
-	e->tab_y = (int **)malloc(sizeof(int *) * init.height + 1);
-	init.y = 30;
-	while (init.height--)
-	{
-		j = 0;
-		init.width = e->width;
-		e->tab_x[i] = (int *)malloc(sizeof(int) * init.width + 1);
-		e->tab_y[i] = (int *)malloc(sizeof(int) * init.width + 1);
-		init.x = 30;
-		while (init.width--)
-		{
-			init.coeff = 3;
-			projection_isometrique(e, init, i, j);
-			if (e->width > 100)
-				init.x += e->width / 5;
-			else if (e->width > 50)
-				init.x += e->width / 3;
-			else if (e->width > 35)
-				init.x += e->width / 2;
-			else
-				init.x += (e->width * 4);
-			j++;
-		}
-		if (e->width > 100)
-			init.y += e->width / 5;
-		else if (e->width > 50)
-			init.y += e->width / 3;
-		else if (e->width > 35)
-			init.y += e->width / 2;
-		else
-			init.y += (e->width * 4);
-
-		i++;
 	}
 }
 

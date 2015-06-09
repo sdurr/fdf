@@ -6,7 +6,7 @@
 /*   By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/04 09:16:11 by sdurr             #+#    #+#             */
-/*   Updated: 2015/06/08 11:51:41 by sdurr            ###   ########.fr       */
+/*   Updated: 2015/06/09 16:21:50 by sdurr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int main(int ac, char **av)
 
 	if (ac != 2)
 	{
-		ft_putendl_fd("Not enough or too many arguments." ,2);
+		ft_putendl_fd("Not enough or too many arguments.", 2);
 		ft_putendl_fd("Please retry with this format: $> ./fdf \"mapfile\"", 2);
 		return (-1);
 	}
@@ -29,7 +29,8 @@ int main(int ac, char **av)
 	ft_putnbr(e.width);
 	ft_putnbr(e.height);
 	e.mlx = mlx_init();
-	e.win = mlx_new_window(e.mlx, ((e.width + 50) * 15), ((e.height + 50) * 15), "fdf");
+	e.win = mlx_new_window(e.mlx, ((e.width + 50) * 15),\
+	((e.height + 50) * 15), "fdf");
 	mlx_expose_hook(e.win, expose_hook, &e);
 	mlx_key_hook(e.win, key_hook, &e);
 	mlx_loop(e.mlx);

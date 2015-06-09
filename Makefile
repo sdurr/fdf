@@ -6,7 +6,7 @@
 #    By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/06/04 10:34:39 by sdurr             #+#    #+#              #
-#    Updated: 2015/06/07 14:37:16 by sdurr            ###   ########.fr        #
+#    Updated: 2015/06/09 16:22:32 by sdurr            ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -16,6 +16,7 @@ SRC			= main.c \
 				recup_map.c \
 				ft_realloc.c \
 				ft_inttablen.c \
+				init_tab.c \
 
 OBJ			= $(SRC:.c=.o)
 
@@ -35,7 +36,6 @@ $(NAME)	:		$(OBJ)
 clean	:
 				Make -C libft/ fclean
 				rm -rf $(OBJ)
-				rm -rf *~
 
 all		:		$(NAME)
 
