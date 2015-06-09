@@ -6,7 +6,7 @@
 /*   By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/04 11:28:28 by sdurr             #+#    #+#             */
-/*   Updated: 2015/06/09 13:31:30 by sdurr            ###   ########.fr       */
+/*   Updated: 2015/06/09 13:41:27 by sdurr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,40 +15,40 @@
 #include <mlx.h>
 #include <stdlib.h>
 
-void		bresenham(int x0, int y0,int x1, int y1, t_env *env, int i, int j)
+void		bresenham(int x1, int y1, t_env *env)
 {
 	t_bressen b;
 
-	b.y = y0;
-	b.dx = x1 - x0;
-	b.dy = y1 - y0;
+	b.x0 = env->tab_x[env->y][env->x];
+	b.y0 = env->tab_y[env->y][env->x];
+	b.y = b.y0;
+	b.dx = x1 - b.x0;
+	b.dy = y1 - b.y0;
 	if (b.dx < 0)
 		b.dx = -b.dx;
 	if (b.dy < 0)
 		b.dy = -b.dy;
 	b.ince = 2 * b.dy;
 	b.incne = 2 *(b.dy - b.dx);
-	b.x = x0;
-	b.sx =  x0 < x1 ? 1 : -1;
-	b.sy = y0 < y1 ? 1 : -1;
+	b.x = b.x0;
+	b.sx = b.x0 < x1 ? 1 : -1;
+	b.sy = b.y0 < y1 ? 1 : -1;
 	b.err = (b.dx > b.dy ? b.dx : -b.dy) /2;
 	while (1)
 	{
-		(void)i;
-		(void)j;
-		mlx_pixel_put(env->mlx, env->win, x0, y0, 0xFFFFFF);
+		mlx_pixel_put(env->mlx, env->win, b.x0, b.y0, 0xFFFFFF);
 		b.e2 = b.err;
-		if (x0 == x1 && y0 == y1)
+		if (b.x0 == x1 && b.y0 == y1)
 			break;
 		if (b.e2 > -b.dx)
 		{
 			b.err -= b.dy;
-			x0 += b.sx;
+			b.x0 += b.sx;
 		}
 		if (b.e2 < b.dy)
 		{
 			b.err += b.dx;
-			y0 += b.sy;
+			b.y0 += b.sy;
 		}
 	}
 }
@@ -106,10 +106,12 @@ int expose_hook(t_env *e)
 		width = e->width;
 		while (width > 0)
 		{
+			e->y = i;
+			e->x = j;
 			if (width > 1)
-				bresenham(e->tab_x[i][j], e->tab_y[i][j], e->tab_x[i][j + 1], e->tab_y[i][j + 1], e, i, j);
+				bresenham(e->tab_x[i][j + 1], e->tab_y[i][j + 1], e);
 			if (e->map[i + 1])
-				bresenham(e->tab_x[i][j], e->tab_y[i][j], e->tab_x[i + 1][j], e->tab_y[i + 1][j], e, i, j);
+				bresenham(e->tab_x[i + 1][j], e->tab_y[i + 1][j], e);
 			j++;
 			width--;
 		}
