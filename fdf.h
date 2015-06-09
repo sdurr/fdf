@@ -6,7 +6,7 @@
 /*   By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/04 09:47:06 by sdurr             #+#    #+#             */
-/*   Updated: 2015/06/09 11:51:23 by sdurr            ###   ########.fr       */
+/*   Updated: 2015/06/09 13:25:22 by sdurr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ typedef struct s_env
 	int		**map;
 	int		width;
 	int		height;
+	int		**tab_x;
+	int		**tab_y;
+
 }				t_env;
 
 int			expose_hook(t_env *e);
