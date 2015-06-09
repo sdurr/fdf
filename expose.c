@@ -6,7 +6,7 @@
 /*   By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/04 11:28:28 by sdurr             #+#    #+#             */
-/*   Updated: 2015/06/09 13:47:19 by sdurr            ###   ########.fr       */
+/*   Updated: 2015/06/09 14:05:57 by sdurr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <mlx.h>
 #include <stdlib.h>
 
-void		loop(t_bressen *b)
+void			loop(t_bressen *b)
 {
 	if (b->e2 > -b->dx)
 	{
@@ -29,9 +29,9 @@ void		loop(t_bressen *b)
 	}
 }
 
-void		bresenham(int x1, int y1, t_env *env)
+void			bresenham(int x1, int y1, t_env *env)
 {
-	t_bressen b;
+	t_bressen	b;
 
 	b.x0 = env->tab_x[env->y][env->x];
 	b.y0 = env->tab_y[env->y][env->x];
@@ -58,50 +58,48 @@ void		bresenham(int x1, int y1, t_env *env)
 	}
 }
 
-void		init_tab(t_env *e, int i, int j)
+void			projection_isometrique(t_env *e, t_init init, int i, int j)
 {
-	int width;
-	int coeff;
-	int height;
-	int x;
-	int y;
-
-	height = e->height;
-	e->tab_x = (int **)malloc(sizeof(int *) * height + 1);
-	e->tab_y = (int **)malloc(sizeof(int *) * height + 1);
-	i = 0;
-	y = 30;
-	width = e->width;
-	while (height--)
-	{
-		j = 0;
-		width = e->width;
-		e->tab_x[i] = (int *)malloc(sizeof(int) * width + 1);
-		e->tab_y[i] = (int *)malloc(sizeof(int) * width + 1);
-		x = 30;
-		while (width--)
-		{
-			coeff = 3;
-			e->tab_x[i][j] = (int)(((0.07 * (float)x - 0.07 * (float)y)) * coeff + 370);
-			e->tab_y[i][j] = (int)(((0.04 * (float)x + 0.04 * (float)y) - 0.2 *(float)(e->map[i][j])) * coeff + 370);
-			x += 100;
-			j++;
-		}
-		y+=100;
-		i++;
-	}
-	e->tab_x[i] = NULL;
-	e->tab_y[i] = NULL;
+	e->tab_x[i][j] = (int)(((0.07 * \
+	(float)init.x - 0.07 * (float)init.y)) * init.coeff + 370);
+	e->tab_y[i][j] = (int)(((0.04 * \
+	(float)init.x + 0.04 * (float)init.y) - 0.2 * \
+	(float)(e->map[i][j])) * init.coeff + 370);
 }
 
-int expose_hook(t_env *e)
+void			init_tab(t_env *e, int i, int j)
 {
-	int i;
-	int j;
-	int width;
-	int height;
+	t_init		init;
 
-	height = e->height;
+	init.height = e->height;
+	e->tab_x = (int **)malloc(sizeof(int *) * init.height + 1);
+	e->tab_y = (int **)malloc(sizeof(int *) * init.height + 1);
+	init.y = 30;
+	while (init.height--)
+	{
+		j = 0;
+		init.width = e->width;
+		e->tab_x[i] = (int *)malloc(sizeof(int) * init.width + 1);
+		e->tab_y[i] = (int *)malloc(sizeof(int) * init.width + 1);
+		init.x = 30;
+		while (init.width--)
+		{
+			init.coeff = 3;
+			projection_isometrique(e, init, i, j);
+			init.x += 100;
+			j++;
+		}
+		init.y += 100;
+		i++;
+	}
+}
+
+int				expose_hook(t_env *e)
+{
+	int			i;
+	int			j;
+	int			width;
+
 	i = 0;
 	j = 0;
 	init_tab(e, i, j);
@@ -126,7 +124,7 @@ int expose_hook(t_env *e)
 	return (0);
 }
 
-int	key_hook(int keycode, t_env *e)
+int				key_hook(int keycode, t_env *e)
 {
 	if (e->win)
 		if (keycode == 53)

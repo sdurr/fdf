@@ -6,7 +6,7 @@
 /*   By: sdurr <sdurr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/04 09:47:06 by sdurr             #+#    #+#             */
-/*   Updated: 2015/06/09 13:39:25 by sdurr            ###   ########.fr       */
+/*   Updated: 2015/06/09 13:51:04 by sdurr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,15 @@ typedef struct s_bressen
 	int err;
 	int e2;
 }			t_bressen;
+
+typedef struct s_init
+{
+	int width;
+	int coeff;
+	int height;
+	int x;
+	int y;
+}				t_init;
 
 int			expose_hook(t_env *e);
 int			key_hook(int keycode, t_env *e);
